@@ -13,7 +13,7 @@ public class FruitShopTest {
         FruitShop fruitShop = new FruitShop();
 
         //When
-        fruitShop.addFruit("pomme");
+        fruitShop.addFruit("pommes");
 
         //Then
         assertThat(fruitShop.getTotal()).isEqualTo(100);
