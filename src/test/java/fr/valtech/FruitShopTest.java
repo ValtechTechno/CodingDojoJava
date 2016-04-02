@@ -60,4 +60,13 @@ public class FruitShopTest {
         // Then
         assertThat(_fruitShop.getTotal()).isEqualTo(100 + 150 - 20);
     }
+
+    @Test
+    public void should_accept_csv_format() {
+        // When
+        _fruitShop.addFruit("Bananes, Cerises, Cerises");
+
+        // Then
+        assertThat(_fruitShop.getTotal()).isEqualTo(150 + 75 * 2 - 20);
+    }
 }

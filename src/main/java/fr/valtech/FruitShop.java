@@ -20,8 +20,11 @@ public class FruitShop {
     /**
      * Add a fruit to the cart
      */
-    public void addFruit(String fruit) {
-        this.fruits.add(fruit);
+    public void addFruit(String inputFruit) {
+        String[] fruits = inputFruit.split(", ?");
+        for (String fruit : fruits){
+            this.fruits.add(fruit);
+        }
     }
 
     /**
