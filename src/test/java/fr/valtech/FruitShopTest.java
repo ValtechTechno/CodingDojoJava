@@ -88,4 +88,25 @@ public class FruitShopTest {
         // Then
         assertThat(_fruitShop.getTotal()).isEqualTo(100);
     }
+
+    @Test
+    public void should_apply_discount_for_3_Apples() {
+        // When
+        _fruitShop.addFruit("Apples");
+        _fruitShop.addFruit("Apples");
+        _fruitShop.addFruit("Apples");
+
+        // Then
+        assertThat(_fruitShop.getTotal()).isEqualTo(200);
+    }
+
+    @Test
+    public void should_apply_discount_for_2_Mele() {
+        // When
+        _fruitShop.addFruit("Mele");
+        _fruitShop.addFruit("Mele");
+
+        // Then
+        assertThat(_fruitShop.getTotal()).isEqualTo(150);
+    }
 }
