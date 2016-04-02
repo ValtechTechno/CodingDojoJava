@@ -13,6 +13,8 @@ public class FruitShop {
 
     public FruitShop() {
         this.catalog.put("Pommes", 100);
+        this.catalog.put("Mele", 100);
+        this.catalog.put("Apples", 100);
         this.catalog.put("Cerises", 75);
         this.catalog.put("Bananes", 150);
     }
@@ -39,7 +41,7 @@ public class FruitShop {
                 sum += fruitCount * this.catalog.get(key);
             }
             if (key.equals("Cerises")) {
-                sum -= fruitCount / 2 * 30;
+                sum -= fruitCount / 2 * 20;
             }
             else if (key.equals("Bananes")) {
                 sum -= fruitCount / 2 * this.catalog.get("Bananes");
