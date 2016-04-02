@@ -22,14 +22,17 @@ public class FruitShop {
         this.discountCatalog.put("Cerises", new Discount(2, 20));
         this.discountCatalog.put("Bananes", new Discount(2, this.priceCatalog.get("Bananes")));
         this.discountCatalog.put("Apples", new Discount(3, this.priceCatalog.get("Apples")));
-        this.discountCatalog.put("Mele", new Discount(2, 50));
+        this.discountCatalog.put("Mele", new Discount(2, 100));
     }
 
     /**
      * Add a fruit to the cart
      */
-    public void addFruit(String fruit) {
-        this.fruits.add(fruit);
+    public void addFruit(String inputFruit) {
+        String[] fruits = inputFruit.split(", ?");
+        for (String fruit : fruits){
+            this.fruits.add(fruit);
+        }
     }
 
     /**
