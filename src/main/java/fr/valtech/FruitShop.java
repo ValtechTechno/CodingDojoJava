@@ -20,11 +20,8 @@ public class FruitShop {
     /**
      * Add a fruit to the cart
      */
-    public void addFruit(String inputFruit) {
-        String[] fruits = inputFruit.split(", ?");
-        for (String fruit : fruits){
-            this.fruits.add(fruit);
-        }
+    public void addFruit(String fruit) {
+        this.fruits.add(fruit);
     }
 
     /**
@@ -42,7 +39,10 @@ public class FruitShop {
                 sum += fruitCount * this.catalog.get(key);
             }
             if (key.equals("Cerises")) {
-                sum -= fruitCount / 2 * 20;
+                sum -= fruitCount / 2 * 30;
+            }
+            else if (key.equals("Bananes")) {
+                sum -= fruitCount / 2 * this.catalog.get("Bananes");
             }
         }
         return sum;

@@ -47,7 +47,7 @@ public class FruitShopTest {
         _fruitShop.addFruit("Cerises");
 
         // Then
-        assertThat(_fruitShop.getTotal()).isEqualTo(150 - 20);
+        assertThat(_fruitShop.getTotal()).isEqualTo(150 - 30);
     }
 
     @Test
@@ -58,15 +58,16 @@ public class FruitShopTest {
         _fruitShop.addFruit("Cerises");
 
         // Then
-        assertThat(_fruitShop.getTotal()).isEqualTo(100 + 150 - 20);
+        assertThat(_fruitShop.getTotal()).isEqualTo(100 + 150 - 30);
     }
 
     @Test
-    public void should_accept_csv_format() {
+    public void should_apply_discount_when_adding_Bananes_twice() {
         // When
-        _fruitShop.addFruit("Bananes, Cerises, Cerises");
+        _fruitShop.addFruit("Bananes");
+        _fruitShop.addFruit("Bananes");
 
         // Then
-        assertThat(_fruitShop.getTotal()).isEqualTo(150 + 75 * 2 - 20);
+        assertThat(_fruitShop.getTotal()).isEqualTo(150);
     }
 }
