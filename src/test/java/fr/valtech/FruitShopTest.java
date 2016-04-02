@@ -118,4 +118,22 @@ public class FruitShopTest {
         // Then
         assertThat(_fruitShop.getTotal()).isEqualTo(150 + 75 * 2 - 20);
     }
+
+    @Test
+    public void should_apply_discount_when_4_different_apple_types() {
+        // When
+        _fruitShop.addFruit("Mele, Apples, Pommes, Mele");
+
+        // Then
+        assertThat(_fruitShop.getTotal()).isEqualTo(100 + 100 + 100 - 100);
+    }
+
+    @Test
+    public void should_apply_global_discount_when_5_fruits() {
+        // When
+        _fruitShop.addFruit("Mele, Cerises, Pommes, Bananes, Apples");
+
+        // Then
+        assertThat(_fruitShop.getTotal()).isEqualTo(100 + 75 + 100 + 150 + 100 - 200);
+    }
 }

@@ -30,7 +30,7 @@ public class FruitShop {
      */
     public void addFruit(String inputFruit) {
         String[] fruits = inputFruit.split(", ?");
-        for (String fruit : fruits){
+        for (String fruit : fruits) {
             this.fruits.add(fruit);
         }
     }
@@ -43,17 +43,21 @@ public class FruitShop {
     public int getTotal() {
         Map<String, Integer> fruitsGroupedByType = groupFruitsByType();
 
-        int sum = 0;
+        int total = 0;
         for (String fruit : fruitsGroupedByType.keySet()) {
             Integer fruitCount = fruitsGroupedByType.get(fruit);
-            sum += fruitCount * this.priceCatalog.get(fruit);
+            total += fruitCount * this.priceCatalog.get(fruit);
 
             Discount discount = this.discountCatalog.get(fruit);
-            if(discount != null){
-                sum -= discount.eval(fruitCount);
+            if (discount != null) {
+                total -= discount.eval(fruitCount);
             }
         }
-        return sum;
+
+        total -= getAppleFruitCount() / 4 * 100;
+        total -= this.fruits.size() / 5 * 200;
+
+        return total;
     }
 
     private Map<String, Integer> groupFruitsByType() {
@@ -65,5 +69,15 @@ public class FruitShop {
             fruitsGroupedByType.put(fruit, fruitsGroupedByType.get(fruit) + 1);
         }
         return fruitsGroupedByType;
+    }
+
+    private int getAppleFruitCount() {
+        int appleFruitCount = 0;
+        for (String fruit : this.fruits) {
+            if (fruit.equals("Pommes") || fruit.equals("Mele") || fruit.equals("Apples")) {
+                appleFruitCount++;
+            }
+        }
+        return appleFruitCount;
     }
 }
