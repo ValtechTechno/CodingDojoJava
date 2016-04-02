@@ -41,12 +41,23 @@ public class FruitShopTest {
     }
 
     @Test
-    public void should_have_total_of_150_when_adding_Cerises_twice() {
+    public void should_apply_discount_when_adding_Cerises_twice() {
         // When
         _fruitShop.addFruit("Cerises");
         _fruitShop.addFruit("Cerises");
 
         // Then
-        assertThat(_fruitShop.getTotal()).isEqualTo(150);
+        assertThat(_fruitShop.getTotal()).isEqualTo(150 - 20);
+    }
+
+    @Test
+    public void should_apply_discount_when_adding_Cerises_twice_with_Pommes_on_the_middle() {
+        // When
+        _fruitShop.addFruit("Cerises");
+        _fruitShop.addFruit("Pommes");
+        _fruitShop.addFruit("Cerises");
+
+        // Then
+        assertThat(_fruitShop.getTotal()).isEqualTo(100 + 150 - 20);
     }
 }
