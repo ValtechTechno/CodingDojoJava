@@ -1,26 +1,26 @@
 package fr.valtech;
 
-public class Fruit {
+class Fruit {
     private int price;
     private int discountQuantity;
     private int discountAmount;
 
-    public Fruit(int price) {
+    Fruit(int price) {
         this(price, 0, 0);
     }
 
-    public Fruit(int price, int discountQuantity, int discountAmount) {
+    Fruit(int price, int discountQuantity, int discountAmount) {
         this.price = price;
         this.discountQuantity = discountQuantity;
         this.discountAmount = discountAmount;
     }
 
-    public int getPrice() {
-        return price;
+    public int getPriceForASet(Integer fruitCount) {
+        return fruitCount * price - discountFor(fruitCount);
     }
 
-    public int getDiscount(Integer fruitCount) {
-        if(discountQuantity > 0){
+    private int discountFor(Integer fruitCount) {
+        if (discountQuantity > 0) {
             return fruitCount / discountQuantity * discountAmount;
         }
         return 0;

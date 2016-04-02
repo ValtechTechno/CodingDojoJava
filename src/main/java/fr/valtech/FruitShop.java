@@ -3,10 +3,11 @@ package fr.valtech;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FruitShop {
-    private Map<Fruit, Integer> fruits = new HashMap<Fruit, Integer>();
+class FruitShop {
+    private Map<Fruit, Integer> fruits;
 
     public FruitShop() {
+        fruits = new HashMap<>();
         fruits.put(FruitCatalog.APPLES, 0);
         fruits.put(FruitCatalog.BANANES, 0);
         fruits.put(FruitCatalog.CERISES, 0);
@@ -18,11 +19,11 @@ public class FruitShop {
      * Add a fruit to the cart
      */
     public void addFruit(String inputFruit) {
-        String[] fruits = inputFruit.split(", ?");
+        String[] fruits = inputFruit.split(",");
         for (String fruitName : fruits) {
-            Fruit fruit = FruitCatalog.getFruitByName(fruitName);
+            Fruit fruit = FruitCatalog.getFruitByName(fruitName.trim());
             if (fruit != null) {
-                this.fruits.put(fruit, this.fruits.get(fruit) + 1);
+                this.fruits.merge(fruit, 1, Integer::sum);
             }
         }
     }
@@ -33,33 +34,39 @@ public class FruitShop {
      * @return the total cart price
      */
     public int getTotal() {
-        int total = getPriceByFruitGroups();
-        total -= getAppleFruitCount() / 4 * 100;
-        total -= getTotalFruits() / 5 * 200;
-        return total;
+        return fruitsPrice() - globalDiscountOnAppleFruits() - globalDiscount();
     }
 
-    private int getPriceByFruitGroups() {
-        int byFruitGroupPrice = 0;
-        for (Fruit fruit : this.fruits.keySet()) {
-            Integer fruitCount = this.fruits.get(fruit);
-            byFruitGroupPrice += fruitCount * fruit.getPrice();
-            byFruitGroupPrice -= fruit.getDiscount(fruitCount);
-        }
-        return byFruitGroupPrice;
+    private int fruitsPrice() {
+        return this.fruits
+                .entrySet()
+                .stream()
+                .map(this::getSetPrice)
+                .mapToInt(fruitPrice -> fruitPrice)
+                .sum();
     }
 
-    private int getTotalFruits() {
-        int count = 0;
-        for (int fruitCount : this.fruits.values()) {
-            count += fruitCount;
-        }
-        return count;
+    private int getSetPrice(Map.Entry<Fruit, Integer> entrySet) {
+        Fruit fruit = entrySet.getKey();
+        int fruitCount = entrySet.getValue();
+        return fruit.getPriceForASet(fruitCount);
     }
 
-    private int getAppleFruitCount() {
-        return this.fruits.get(FruitCatalog.POMMES) +
+    private int globalDiscountOnAppleFruits() {
+        int fruitCountOfAppleType =
+                this.fruits.get(FruitCatalog.POMMES) +
                 this.fruits.get(FruitCatalog.MELE) +
                 this.fruits.get(FruitCatalog.APPLES);
+
+        return fruitCountOfAppleType / 4 * 100;
+    }
+
+    private int globalDiscount() {
+        int totalFruitCount = this.fruits
+                .values()
+                .stream()
+                .mapToInt(x->x).sum();
+
+        return totalFruitCount / 5 * 200;
     }
 }
