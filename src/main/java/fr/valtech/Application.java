@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Program {
+public class Application {
 
     /**
      * The main launcher of the application
@@ -17,7 +17,9 @@ public class Program {
         BufferedReader entree = new BufferedReader(new InputStreamReader(System.in));
 
         try {
-            System.out.println("# Type some fruit");
+            System.out.println("Welcome to the fruit shop\n");
+            System.out.println("Type some fruit\n");
+            System.out.println("=================\n");
             while (true) {
                 final String myFruit = entree.readLine();
                 fruitShop.addFruit(myFruit);
